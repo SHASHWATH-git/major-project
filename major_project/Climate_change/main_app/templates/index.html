@@ -1,0 +1,38 @@
+<!-- books.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Books</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Set max height and enable scrolling */
+        .scrollable-card-column {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Books on Climate Change</h1>
+        <hr>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="scrollable-card-column">
+                    {% for book in books %}
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text">{{ book.snippet }}</p>
+                                <a href="{{ book.link }}" class="btn btn-primary" target="_blank">Learn More</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
