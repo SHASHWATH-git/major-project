@@ -1,9 +1,81 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+import pickle
+from django.contrib import messages
 
 # Create your views here.
 
+guserlname = ""
+pickle.dump(
+    guserlname,
+    open(
+        "C:/Users/CHIRON/Desktop/mpcode/major-project/major_project/Climate_change/main_app/templates/variableStoringFile.dat",
+        "wb",
+    ),
+)
+
 def homepage(request):
+    return render(request, "index.html")
+
+def signup(request):
+    if request.method == "POST":
+        username = request.POST.get("uname")
+        useremail = request.POST.get("uemail")
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        if password1 == password2:
+            user = User.objects.create_user(
+                username=username, email=useremail, password=password1
+            )
+            return render(
+                request,
+                "login.html",
+            )
+            # user2 = new_user(name=username)
+            # user2.save()
+            # new_user.save()
+    return render(request, "signup.html")
+
+def login(request):
+    if request.method == "POST":
+        userlname = request.POST["lemail"]
+        lpassword = request.POST["lpassword"]
+        print(userlname, lpassword)
+        user = authenticate(username=userlname, password=lpassword)
+        guserlname = userlname
+        pickle.dump(
+            guserlname,
+            open(
+                "C:/Users/CHIRON/Desktop/mpcode/major-project/major_project/Climate_change/main_app/templates/variableStoringFile.dat",
+                "wb",
+            ),
+        )
+        if user is not None:
+            print("user is present")
+            return render(request, "dashboard.html", {"name": userlname})
+        else:
+            print("user not present")
+    return render(request, "login.html")
+
+def dashboard(request):
+    if request.method == "POST":
+        data = request.POST["data"]
+        guserlname = pickle.load(
+            open(
+                "C:/Users/CHIRON/Desktop/Mini Project/code/miniproject1/accounts/variableStoringFile.dat",
+                "rb",
+            )
+        )
+        print(guserlname)
+        if data == "bookapi" or data == "history":
+            messages.info(request, data)
+
+        return render(request, "dashboard.html", {"name": guserlname})
+
+
+def bookapi(request):
     import requests
 
 # Set up API key and search engine ID
@@ -36,4 +108,8 @@ def homepage(request):
         'books': books
     }
 
-    return render(request, 'index.html', context)
+    return render(request, 'bookapi.html', context)
+
+def logout(request):
+    
+    return render(request,"index.html")

@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DigiHealth Dashboard Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {
+            height: 300px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+        }
+
+        /* On small screens, set height to 'auto' for the grid */
+        @media screen and (max-width: 767px) {
+            .row.content {
+                height: auto;
+            }
+        }
+
+        .box {
+            background: #fff;
+            border-radius: 2rem;
+            box-shadow: var(--box-shadow);
+            border: var(--border);
+            padding: 2.5rem;
+            border: 2px solid black;
+            margin-right: 15%;
+        }
+
+        .box i {
+            color: var(--green);
+            font-size: 5rem;
+            padding-bottom: .5rem;
+        }
+
+        .box h3 {
+            color: var(--black);
+            font-size: 2.5rem;
+            padding: 1rem 0;
+        }
+
+        .box p {
+            color: var(--light-color);
+            font-size: 1.4rem;
+            line-height: 2;
+        }
+
+        .boxes {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse visible-xs">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Logo1</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">{{name}}</a></li>
+                    <li><a href="#">Age</a></li>
+                    <li><a href="#">Gender</a></li>
+                    <li><a href="#">Geo</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav hidden-xs">
+                <h2>DigiHealth</h2>
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#section1">
+                            <h2>Welcome : {{name}}</h2>
+                        </a></li>
+                    <form action="dashboard" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="data" value="history" hidden>
+                        <button class="btn" type="submit">History<span class="fas fa-chevron-right"></span></button>
+                    </form>
+                
+                    <form action="logout" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="data" value="logout" hidden>
+                    <button type="submit" class="btn">
+                        Logout<span class="fas fa-sign-out-alt"></span>
+                        
+                  </button>
+                      </form>
+                    <!-- <li class="active"><a href="history">Hisotry</a></li> -->
+                    <!-- <li><a href="#section2">Age</a></li>
+                    
+                    <li><a href="#section3">Gender</a></li>
+                    <li><a href="#section3">Geo</a></li> -->
+                </ul><br>
+            </div>
+            <br>
+
+            <!-- <div class="col-sm-9">
+                <div class="well">
+                    <h4>Dashboard</h4>
+                    <p>Some text..</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="well">
+                            <h4>Users</h4>
+                            <p>1 Million</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="well">
+                            <h4>Pages</h4>
+                            <p>100 Million</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="well">
+                            <h4>Sessions</h4>
+                            <p>10 Million</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="well">
+                            <h4>Bounce</h4>
+                            <p>30%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="well">
+                            <p>Text</p>
+                            <p>Text</p>
+                            <p>Text</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="well">
+                            <p>Text</p>
+                            <p>Text</p>
+                            <p>Text</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="well">
+                            <p>Text</p>
+                            <p>Text</p>
+                            <p>Text</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="well">
+                            <p>Text</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="well">
+                            <p>Text</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+            <div class="boxes col-sm-9">
+                <div class="box">
+                    <i class="fas fa-cookie-bite"></i>
+                    <h3>Book Search</h3>
+                    <!-- <p>now you can login and check the result at any moment...any day</p> -->
+                    <!-- <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a> -->
+                    <!-- <a href="login" class="btn"> LOGIN <span class="fas fa-chevron-right"></span> </a>
+                </div> -->
+                    <!-- <div class="diabets box"> -->
+                    <!-- <h1>diabets</h1> -->
+                    <form action="bookapi" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="data" value="bookapi" hidden>
+                        <button class="btn" type="submit">Click Here<span class="fas fa-chevron-right"></span></button>
+                    </form>
+                </div>
+                <!-- <div class="box">
+                    <i class="fas fa-heartbeat"></i>
+                    <h3>Heart Disease Prediction</h3>
+                    <!-- <p>now you can login and check the result at any moment...any day</p> -->
+                    <!-- <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a> -->
+                    <!-- <a href="login" class="btn"> LOGIN <span class="fas fa-chevron-right"></span> </a> -->
+                    <!-- </div> -->
+
+                    <!-- <div class="heart box"> -->
+                    <!-- <h1>heart</h1> 
+                    <form action="dashboard" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="data" value="heart" hidden>
+                        <button class="btn" type="submit">Click Here<span class="fas fa-chevron-right"></span></button>
+                    </form>
+                </div> -->
+
+            </div><br><br><br><br><br><br>
+            
+            <div>
+
+            </div>
+            <hr>
+            {% if messages %}
+            {% for message in messages%}
+            <div>
+
+            </div>
+            <iframe src="{{message}}" style="width: 1000px; height: 500px;"></iframe>
+            {% endfor%}
+            {%endif%}
+
+</body>
+
+</html>
